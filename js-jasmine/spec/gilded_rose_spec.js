@@ -1,4 +1,4 @@
-var {Shop, Item} = require('../src/gilded_rose.js');
+// var {Shop, Item} = require('../src/gilded_rose.js');
 describe("Gilded Rose", function() {
 
   it("should foo", function() {
@@ -114,19 +114,19 @@ describe("Gilded Rose", function() {
       expect(items[0].quality).toEqual(1);
     })
 
-    // it("after the sellin, it should decrease the quality by 2", function(){
-    //   const gildedRose = new Shop([ new Item("normal", -1, 3) ]);
-    //   const items = gildedRose.updateQuality();
-    //   expect(items[0].sellIn).toEqual(-2);
-    //   expect(items[0].quality).toEqual(0);
-    // })
+    it("after the sellin, it should decrease the quality by 2", function(){
+      const gildedRose = new Shop([ new Item("Conjured", -1, 3) ]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toEqual(-2);
+      expect(items[0].quality).toEqual(0);
+    })
 
-    // it("when quality = 0, it should not decrease the quality", function(){
-    //   const gildedRose = new Shop([ new Item("normal", 1, 0) ]);
-    //   const items = gildedRose.updateQuality();
-    //   expect(items[0].sellIn).toEqual(0);
-    //   expect(items[0].quality).toEqual(0);
-    // })
+    it("when quality = 0, it should not decrease the quality", function(){
+      const gildedRose = new Shop([ new Item("Conjured", 1, 0) ]);
+      const items = gildedRose.updateQuality();
+      expect(items[0].sellIn).toEqual(0);
+      expect(items[0].quality).toEqual(0);
+    })
   })
 
 });
