@@ -18,96 +18,86 @@ class Shop {
       var item = this.items[i]
 
       if (item.name != 'Sulfuras, Hand of Ragnaros') {
-        this.reduceSellIn(item);
+        this._reduceSellIn(item);
       }
 
       if(item.name === 'Aged Brie'){
-        this.agedBrieQuality(item);
+        this._agedBrieQuality(item);
       }else if(item.name === 'Backstage passes to a TAFKAL80ETC concert'){
-        this.backstagePassQuality(item);
+        this._backstagePassQuality(item);
       } else if(item.name === 'Sulfuras, Hand of Ragnaros'){
         /* no change */
       } else {
-        this.normalItem(item);
+        this._normalItem(item);
       }
     }
     
     return this.items;
   }
 
-  increaseQuality(product){
+  _increaseQuality(product){
     product.quality += 1
   }
 
-  agedBrieQuality(product){
+  _agedBrieQuality(product){
     if(product.quality < 50){
-      this.increaseQuality(product);
+      this._increaseQuality(product);
 
       if (product.sellIn < 0 && product.quality < 50){
-        this.increaseQuality(product);
+        this._increaseQuality(product);
       } 
     }
   }
 
-  backstagePassQuality(product){
-    if(this.pastSellIn(product)){
-      this.zeroQuality(product)
-    } else if (this.lessthan50(product)){
-        this.increaseQuality(product);
+  _backstagePassQuality(product){
+    if(this._pastSellIn(product)){
+      this._zeroQuality(product)
+    } else if (this._lessthan50(product)){
+        this._increaseQuality(product);
         
-        if (this.fewerThan11DaysAndLessThan50(product)){
-          this.increaseQuality(product);
-        }
-
-        if (this.fewerThan6DaysAndLessThan50(product)){
-          this.increaseQuality(product);
-        }
+        this._fewerThanXDaysAndLessThan50(product, 11);
+        
+        this._fewerThanXDaysAndLessThan50(product, 6);
     }
   }
 
-  pastSellIn(product){
+  _pastSellIn(product){
     return product.sellIn < 0;
   }
 
-  zeroQuality(product){
+  _zeroQuality(product){
     product.quality = 0;
   }
 
-  fewerThan11DaysAndLessThan50(product){
-    return product.sellIn < 11 && this.lessthan50(product)
+  _fewerThanXDaysAndLessThan50(product, days){
+    if(product.sellIn < days && this._lessthan50(product)){
+      this._increaseQuality(product);
+    }
   }
 
-  fewerThan6DaysAndLessThan50(product){
-    return product.sellIn < 6 && this.lessthan50(product)
-  }
-
-  lessthan50(product){
+  _lessthan50(product){
     return product.quality < 50
   }
 
-  positiveQuality(product){
+  _positiveQuality(product){
     return product.quality > 0
   }
 
-  reduceQuality(product){
+  _reduceQuality(product){
     product.quality -= 1
   }
 
-  normalItem(product){
-    if (this.positiveQuality(product)){
-      this.reduceQuality(product)
+  _normalItem(product){
+    if (this._positiveQuality(product)){
+      this._reduceQuality(product)
     }
 
-    if (this.pastSellIn(product) && this.positiveQuality(product)){
-      this.reduceQuality(product)
+    if (this._pastSellIn(product) && this._positiveQuality(product)){
+      this._reduceQuality(product)
     }
   }
 
-  thisItem(name, product){
-    return product.name === name
-  }
-
-  reduceSellIn(product){
+  _reduceSellIn(product){
     product.sellIn -= 1
   }
   
