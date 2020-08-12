@@ -27,6 +27,9 @@ class Shop {
         this._backstagePassQuality(item);
       } else if(item.name === 'Sulfuras, Hand of Ragnaros'){
         /* no change */
+      } else if (item.name === 'Conjured') {
+        this._normalItem(item);
+        this._normalItem(item);
       } else {
         this._normalItem(item);
       }
