@@ -17,11 +17,10 @@ Challenges:
   2. refactor the code to remove the verbose if statements
 
   3. Start to extract the products:
-    1. Sulfuras
-    * one item
-    2. Aged brie
-    3. Backstage passes
-    4.
+    1. Aged brie
+    2. Backstage passes
+    3. Normal product
+    4. Sulfuras
   
   4. Add in Conjured products
 
@@ -33,7 +32,7 @@ Challenges:
   * quality = 0
 2. test one sulfuras
   * before selling
-  * quality > 0
+
 3. test one aged brie
   * before sellin
   * after sellin
