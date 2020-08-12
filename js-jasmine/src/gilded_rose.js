@@ -33,9 +33,7 @@ class Shop {
             }
           } 
         }
-      }
-
-      if(this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert'){
+      } else if(this.items[i].name === 'Backstage passes to a TAFKAL80ETC concert'){
         if(this.items[i].sellIn < 0){
           this.items[i].quality = 0
         } else {
@@ -56,44 +54,21 @@ class Shop {
           }
         }
         
-      }
-
-
-
-
-      if (this.items[i].name != 'Aged Brie' && this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-        if (this.items[i].quality > 0) {
-          if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-            this.items[i].quality = this.items[i].quality - 1;
-          }
-        } /*reduces the quality of all items apart from the special items*/
+      } else if(this.items[i].name === 'Sulfuras, Hand of Ragnaros'){
+        /* no change */
       } else {
-        
-      }
+        if (this.items[i].quality > 0){
+          this.items[i].quality -= 1;
+        }
 
-
-
-      
-
-
-      if (this.items[i].sellIn < 0) {
-        if(this.items[i].name != 'Aged Brie'){
-          if (this.items[i].name != 'Backstage passes to a TAFKAL80ETC concert') {
-            if (this.items[i].quality > 0) {
-              if (this.items[i].name != 'Sulfuras, Hand of Ragnaros') {
-                this.items[i].quality = this.items[i].quality - 1;
-              }
-            }/* decreases the quality of normal items by 1 after the sellin date, on top of the 1 that has previously been reduced*/
-          }
+        if (this.items[i].sellIn < 0 && this.items[i].quality > 0){
+          this.items[i].quality -= 1;
         }
       }
+
     }
 
     return this.items; /*returns the list of items*/
-  }
-
-  lessthan50(element){
-    element.quality < 50
   }
   
 }
