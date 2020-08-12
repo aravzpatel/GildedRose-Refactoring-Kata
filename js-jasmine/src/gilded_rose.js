@@ -24,26 +24,8 @@ class Shop {
 
       if(item.name === 'Aged Brie'){
         this.agedBrieQuality(item)
-      } else if(item.name === 'Backstage passes to a TAFKAL80ETC concert'){
-        if(item.sellIn < 0){
-          item.quality = 0
-        } else {
-          if (item.quality < 50 && item.name != 'Aged Brie') {
-            item.quality += 1; /*increases the quality of the SPECIAL items*/
-            if (item.name == 'Backstage passes to a TAFKAL80ETC concert') {
-              if (item.sellIn < 11) {
-                if (item.quality < 50) {
-                  item.quality += 1; /*increases the quality by 2 of a backstage pass*/
-                }
-              }
-              if (item.sellIn < 6) {
-                if (item.quality < 50) {
-                  item.quality += 1; /* increases the quality by 3 of a backstage pass*/
-                }
-              }
-            }
-          }
-        }
+      }else if(item.name === 'Backstage passes to a TAFKAL80ETC concert'){
+        this.backstagePassQuality(item)
       } else if(item.name === 'Sulfuras, Hand of Ragnaros'){
         /* no change */
       } else {
@@ -73,6 +55,42 @@ class Shop {
         this.increaseQuality(product);
       } 
     }
+  }
+
+  backstagePassQuality(product){
+    if(this.pastSellIn(product)){
+      this.zeroQuality(product)
+    } else if (this.lessthan50(product)){
+        this.increaseQuality(product); /*increases the quality of the SPECIAL items*/
+        
+        if (this.fewerThan11DaysAndLessThan50(product)){
+          this.increaseQuality(product); /*increases the quality by 2 of a backstage pass*/
+        }
+
+        if (this.fewerThan6DaysAndLessThan50(product)){
+          this.increaseQuality(product); /*increases the quality by 2 of a backstage pass*/
+        }
+    }
+  }
+
+  pastSellIn(product){
+    return product.sellIn < 0;
+  }
+
+  zeroQuality(product){
+    product.quality = 0;
+  }
+
+  fewerThan11DaysAndLessThan50(product){
+    return product.sellIn < 11 && this.lessthan50(product)
+  }
+
+  fewerThan6DaysAndLessThan50(product){
+    return product.sellIn < 6 && this.lessthan50(product)
+  }
+
+  lessthan50(product){
+    return product.quality < 50
   }
   
 }
