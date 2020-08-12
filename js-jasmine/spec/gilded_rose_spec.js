@@ -44,22 +44,23 @@ describe("Gilded Rose", function() {
       const gildedRose = new Shop([ new Item("Aged Brie", 3, 3) ]);
       const items = gildedRose.updateQuality();
       expect(items[0].sellIn).toEqual(2);
-      expect(items[0].quality).toEqual(2);
+      expect(items[0].quality).toEqual(4);
     })
 
-    it("after the sellin, it should decrease the quality by 2", function(){
-      const gildedRose = new Shop([ new Item("normal", -1, 3) ]);
+    it("after the sellin, it should increase in quality by 2", function(){
+      const gildedRose = new Shop([ new Item("Aged Brie", -1, 3) ]);
       const items = gildedRose.updateQuality();
       expect(items[0].sellIn).toEqual(-2);
-      expect(items[0].quality).toEqual(1);
+      expect(items[0].quality).toEqual(5);
     })
 
-    it("when quality = 0, it should not decrease the quality", function(){
-      const gildedRose = new Shop([ new Item("normal", 1, 0) ]);
+    it("it should never have a quality greater than 50", function(){
+      const gildedRose = new Shop([ new Item("Aged Brie", -1, 50) ]);
       const items = gildedRose.updateQuality();
-      expect(items[0].sellIn).toEqual(0);
-      expect(items[0].quality).toEqual(0);
+      expect(items[0].sellIn).toEqual(-2);
+      expect(items[0].quality).toEqual(50);
     })
+
   })
 
 });
