@@ -14,33 +14,25 @@ class Shop {
   
 
   updateQuality() {
-    
-    for (var i = 0; i < this.items.length; i++) { /*this iterates through the items*/
+    for (var i = 0; i < this.items.length; i++) {
       var item = this.items[i]
 
       if (item.name != 'Sulfuras, Hand of Ragnaros') {
-        item.sellIn -= 1; /*changes the sellin*/
+        this.reduceSellIn(item);
       }
 
       if(item.name === 'Aged Brie'){
-        this.agedBrieQuality(item)
+        this.agedBrieQuality(item);
       }else if(item.name === 'Backstage passes to a TAFKAL80ETC concert'){
-        this.backstagePassQuality(item)
+        this.backstagePassQuality(item);
       } else if(item.name === 'Sulfuras, Hand of Ragnaros'){
         /* no change */
       } else {
-        if (item.quality > 0){
-          item.quality -= 1;
-        }
-
-        if (item.sellIn < 0 && item.quality > 0){
-          item.quality -= 1;
-        }
+        this.normalItem(item);
       }
-
     }
-
-    return this.items; /*returns the list of items*/
+    
+    return this.items;
   }
 
   increaseQuality(product){
@@ -49,7 +41,7 @@ class Shop {
 
   agedBrieQuality(product){
     if(product.quality < 50){
-      this.increaseQuality(product); /* increases the quality of aged brie*/
+      this.increaseQuality(product);
 
       if (product.sellIn < 0 && product.quality < 50){
         this.increaseQuality(product);
@@ -61,14 +53,14 @@ class Shop {
     if(this.pastSellIn(product)){
       this.zeroQuality(product)
     } else if (this.lessthan50(product)){
-        this.increaseQuality(product); /*increases the quality of the SPECIAL items*/
+        this.increaseQuality(product);
         
         if (this.fewerThan11DaysAndLessThan50(product)){
-          this.increaseQuality(product); /*increases the quality by 2 of a backstage pass*/
+          this.increaseQuality(product);
         }
 
         if (this.fewerThan6DaysAndLessThan50(product)){
-          this.increaseQuality(product); /*increases the quality by 2 of a backstage pass*/
+          this.increaseQuality(product);
         }
     }
   }
@@ -91,6 +83,32 @@ class Shop {
 
   lessthan50(product){
     return product.quality < 50
+  }
+
+  positiveQuality(product){
+    return product.quality > 0
+  }
+
+  reduceQuality(product){
+    product.quality -= 1
+  }
+
+  normalItem(product){
+    if (this.positiveQuality(product)){
+      this.reduceQuality(product)
+    }
+
+    if (this.pastSellIn(product) && this.positiveQuality(product)){
+      this.reduceQuality(product)
+    }
+  }
+
+  thisItem(name, product){
+    return product.name === name
+  }
+
+  reduceSellIn(product){
+    product.sellIn -= 1
   }
   
 }
