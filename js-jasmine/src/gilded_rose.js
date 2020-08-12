@@ -28,8 +28,7 @@ class Shop {
       } else if(item.name === 'Sulfuras, Hand of Ragnaros'){
         /* no change */
       } else if (item.name === 'Conjured') {
-        this._normalItem(item);
-        this._normalItem(item);
+        this._conjuredItem(item)
       } else {
         this._normalItem(item);
       }
@@ -95,6 +94,24 @@ class Shop {
       this._reduceQuality(product)
     }
 
+    if (this._pastSellIn(product) && this._positiveQuality(product)){
+      this._reduceQuality(product)
+    }
+  }
+
+  _conjuredItem(product){
+    if (this._positiveQuality(product)){
+      this._reduceQuality(product)
+    }
+    
+    if (this._positiveQuality(product)){
+      this._reduceQuality(product)
+    }
+
+    if (this._pastSellIn(product) && this._positiveQuality(product)){
+      this._reduceQuality(product)
+    }
+    
     if (this._pastSellIn(product) && this._positiveQuality(product)){
       this._reduceQuality(product)
     }
